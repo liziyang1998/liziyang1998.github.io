@@ -10,7 +10,7 @@
     
     
     
-    <title>1 | lzy-coding</title>
+    <title>tags: CodeCraft | lzy-coding</title>
     <link href="”http://yoursite.com“" rel="”prefetch”">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -114,6 +114,10 @@
                             <a href="/categories/test/">test</a>
                         </li>
                         
+                        <li>
+                            <a href="/categories/比赛/">比赛</a>
+                        </li>
+                        
                         
                         
                     </ul>
@@ -123,10 +127,21 @@
                 
                 
                 
-                <li class>
-                    <a href="/tags">
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
                         <i class="fa fa-tags"></i>标签
                     </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/tags/CodeCraft/">CodeCraft</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
                 </li>
                 
                 
@@ -147,27 +162,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 gal-right" id="mainstay">
-                    
-<article class="article well article-body" id="article">
+                    <article class="article well article-body" id="article-tag">
     <div class="breadcrumb">
         <i class="fa fa-home"></i>
         <a href="http://yoursite.com">lzy-coding</a>
         >
-        <span>1</span>
+        <span>标签</span>
     </div>
     <!-- 大型设备详细文章 -->
     <div class="hidden-xs">
         <div class="title-article">
             <h1>
-                <a href="/2019/05/11/1/">1</a>
+                <a href="/tags/CodeCraft/index.html">CodeCraft</a>
             </h1>
-        </div>
-        <div class="tag-article">
-            
-            <span class="label label-gal">
-                <i class="fa fa-calendar"></i> 2019-05-11
-            </span>
-            
         </div>
     </div>
     <!-- 小型设备详细文章 -->
@@ -175,33 +182,21 @@
         <center>
             <div class="title-article">
                 <h4>
-                    <a href="/2019/05/11/1/">1</a>
+                    <a href="/tags/CodeCraft/index.html">CodeCraft</a>
                 </h4>
             </div>
-            <p>
-                <i class="fa fa-calendar"></i> 2019-05-11
-            </p>
-            <p>
-                
-                
-            </p>
         </center>
     </div>
-    <div class="content-article">
-        
+    <div class="content-article" style="margin-top: 30px;">
+        <div class="alert alert-info" style="font-size: 14px; line-height: 2; font-weight: bold;">
+            
+            <a href="/2019/05/13/华为2019CodeCraft/">华为2019CodeCraft</a>
+            <br>
+            
+            
+        </div>
     </div>
 </article>
-
-
-<div id="comments-template"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script>
-	if(!window.commentConfig) {
-      window.commentConfig = {}
-      window.commentConfig.title = '1'
-    }
-</script>
-
                 </div>
                 <aside class="col-md-4 gal-left" id="sidebar">
     <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
@@ -256,7 +251,7 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/05/11/1/">1</a>
+                    <a href="/2019/05/13/华为2019CodeCraft/">华为2019CodeCraft</a>
                 </span>
             </li>
             
@@ -290,7 +285,7 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/05/11/1/">1</a>
+                    <a href="/2019/05/10/hello-world/">Hello World</a>
                 </span>
             </li>
             
@@ -302,7 +297,7 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/05/10/hello-world/">Hello World</a>
+                    <a href="/2019/05/13/华为2019CodeCraft/">华为2019CodeCraft</a>
                 </span>
             </li>
             
@@ -317,19 +312,21 @@
 
                 
                 <li>
-                    <a href="/2019/05/11/1/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                    <a href="/tags/CodeCraft/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
                 </li>
                 
                 
                 
                 <li>
-                    <a href="/2019/05/11/1/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                    <a href="/tags/CodeCraft/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
                 </li>
                 
             </ul>
             <div class="tab-content">
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    
+    <a href="/tags/CodeCraft/" style="font-size: 15.737842873569058px;" class="tag-cloud-link">CodeCraft</a>
     
 </div>
                 
@@ -417,7 +414,7 @@
 <script src="https://myau.moe/js/comment/gitment.browser.js"></script>
 <script>
     if(window.commentConfig) {
-      window.commentConfig.id = 'Sat May 11 2019 14:45:11 GMT+0800'
+      window.commentConfig.id = ''
       window.commentConfig.owner = 'liziyang1998'
       window.commentConfig.repo = 'comment'
       window.commentConfig.client_id = 'aadd418b6b9ea998fcd9'
@@ -425,7 +422,7 @@
       window.commentConfig.redirect_uri = ''
     } else {
       window.commentConfig = {
-      	id: 'Sat May 11 2019 14:45:11 GMT+0800',
+      	id: '',
         owner: 'liziyang1998',
         repo: 'comment',
         client_id: 'aadd418b6b9ea998fcd9',
