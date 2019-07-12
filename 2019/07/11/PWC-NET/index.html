@@ -35,7 +35,7 @@
       if (document.images) {
         var avatar = new Image();
         avatar.src = '/imgs/http:/tva1.sinaimg.cn/large/0060lm7Tly1g4wtwf7s59j30hs0hs3za.jpg'
-        var previews = 'https://s2.ax1x.com/2019/07/11/ZRCBn0.md.jpg,https://s2.ax1x.com/2019/07/11/ZRC6NF.md.jpg,https://s2.ax1x.com/2019/07/11/ZRCr7T.md.jpg,https://s2.ax1x.com/2019/07/11/ZRCDBV.md.jpg,https://s2.ax1x.com/2019/07/11/ZRCch4.md.jpg'.split(',')
+        var previews = 'http://tva1.sinaimg.cn/large/0060lm7Tly1g4wtwyx56ij31hc0u0dst.jpg,http://tva1.sinaimg.cn/large/0060lm7Tly1g4wtx0eebxj31hc0u07sf.jpg,http://tva1.sinaimg.cn/large/0060lm7Tly1g4wtx1fuv6j31c00u047d.jpg,http://tva1.sinaimg.cn/large/0060lm7Tly1g4wtx12bw2j31hc0u0dpm.jpg,http://tva1.sinaimg.cn/large/0060lm7Tly1g4wtx2r7eoj31c00u0h6k.jpg'.split(',')
         var previewsPreLoad = []
         for(var i = 0; i < length; i++) {
           previewsPreLoad.push(new Image())
@@ -115,11 +115,11 @@
                         </li>
                         
                         <li>
-                            <a href="/categories/比赛/">比赛</a>
+                            <a href="/categories/其他/">其他</a>
                         </li>
                         
                         <li>
-                            <a href="/categories/其他/">其他</a>
+                            <a href="/categories/比赛/">比赛</a>
                         </li>
                         
                         
@@ -148,11 +148,11 @@
                         </li>
                         
                         <li>
-                            <a href="/tags/CodeCraft/">CodeCraft</a>
+                            <a href="/tags/其他/">其他</a>
                         </li>
                         
                         <li>
-                            <a href="/tags/其他/">其他</a>
+                            <a href="/tags/CodeCraft/">CodeCraft</a>
                         </li>
                         
                         
@@ -234,7 +234,7 @@
              <!--02-->
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PWC-NET理解"><span class="toc-text">PWC-NET理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#涉及知识"><span class="toc-text">涉及知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整体框架"><span class="toc-text">整体框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#特征金字塔"><span class="toc-text">特征金字塔</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#翘曲层"><span class="toc-text">翘曲层</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PWC-NET理解"><span class="toc-text">PWC-NET理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#涉及知识"><span class="toc-text">涉及知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整体框架"><span class="toc-text">整体框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#特征金字塔"><span class="toc-text">特征金字塔</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#存疑"><span class="toc-text">存疑</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#翘曲层"><span class="toc-text">翘曲层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#双线性插值"><span class="toc-text">双线性插值:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#grid-sample函数"><span class="toc-text">grid_sample函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#存疑-1"><span class="toc-text">存疑</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#成本量层"><span class="toc-text">成本量层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#存疑-2"><span class="toc-text">存疑</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#光流估算器"><span class="toc-text">光流估算器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DenseNET"><span class="toc-text">DenseNET</span></a></li></ol></li></ol></li></ol></li></ol>
 </div>
         
         
@@ -242,20 +242,47 @@
     <div class="content-article">
         <a id="more"></a>
 <h1 id="PWC-NET理解"><a href="#PWC-NET理解" class="headerlink" title="PWC-NET理解"></a>PWC-NET理解</h1><h2 id="涉及知识"><a href="#涉及知识" class="headerlink" title="涉及知识"></a>涉及知识</h2><ul>
+<li>CNN</li>
 <li>图像上采样、下采样</li>
+<li>上采样与反卷积</li>
 <li>双线性插值</li>
 <li>DenesNET 密集卷积网络</li>
 <li>扩张卷积</li>
 </ul>
 <h2 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h2><p>PWC-NET的设计遵循简单和完善的原则：</p>
-<ul>
-<li>特征金字塔形加工，翘曲和成本量使用</li>
-</ul>
+<blockquote>
+<p>特征金字塔形加工，翘曲和成本量使用</p>
+</blockquote>
 <p>将图片投射进可学习的特征金字塔，PWC-NET网络使用当前光流估计来扭曲第二张图片学到的CNN特征，然后使用扭曲特征和第一章图片学到的CNN特征构建成本量，最后由CNN处理以估计光流</p>
-<p><img src="https://s2.ax1x.com/2019/07/11/Z2LjoR.png" alt></p>
+<p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4wx33ieh3j30od07gdh9.jpg" alt></p>
 <h3 id="特征金字塔"><a href="#特征金字塔" class="headerlink" title="特征金字塔"></a>特征金字塔</h3><p>由6层卷积组成，通道数目从原图像的3通道变为16、32、64、96、128、196<br>卷积层后跟进LeakyReLU层，参数设置为0.1<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv</span><span class="params">(in_planes, out_planes, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>, dilation=<span class="number">1</span>)</span>:</span>   </span><br><span class="line">    <span class="keyword">return</span> nn.Sequential(</span><br><span class="line">            nn.Conv2d(in_planes, out_planes, kernel_size=kernel_size, stride=stride, </span><br><span class="line">                        padding=padding, dilation=dilation, bias=<span class="literal">True</span>),</span><br><span class="line">            nn.LeakyReLU(<span class="number">0.1</span>))</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">self.conv1a  = conv(<span class="number">3</span>,   <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>)</span><br><span class="line">self.conv1aa = conv(<span class="number">16</span>,  <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>)</span><br><span class="line">self.conv1b  = conv(<span class="number">16</span>,  <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
-<p>通过2步长降低单特征图的大小<br>对应后面的forward没有maxpool层<br><em>存疑，为什么不使用池化层</em></p>
-<h3 id="翘曲层"><a href="#翘曲层" class="headerlink" title="翘曲层"></a>翘曲层</h3>
+<p>通过2步长降低单特征图的大小<br>对应后面的forward没有maxpool层</p>
+<h4 id="存疑"><a href="#存疑" class="headerlink" title="存疑"></a>存疑</h4><p>为什么不使用池化层？</p>
+<h3 id="翘曲层"><a href="#翘曲层" class="headerlink" title="翘曲层"></a>翘曲层</h3><p>使用上一层上采样流与图二特征结合，具体为使用双线形插值实现变形操作</p>
+<p>使用torch的grid_sample进行双线性插值：</p>
+<h4 id="双线性插值"><a href="#双线性插值" class="headerlink" title="双线性插值:"></a>双线性插值:</h4><ul>
+<li>作用是对生成的图像与原图想重映射，由于坐标为实数，所以用插值法(对应可以使用其他映射方法，如果图像变化剧烈，或许可以使用lagrange插值或者分段插值？)在图像处理中，双线性插值使用非常多，在数学上，双线性插值可以看成是两个变量间的一维线性插值的延伸，对应图像的2维。</li>
+<li>假设源图像大小是m*n,目标图像大小是a*b，那么边长之比就是m/a, n/b， 这个比例通常不是整数。目标图像第(i,j)个像素点，对应原图像为(i*m/a, j*n/b)</li>
+<li>这个对应坐标一般不是整数，双线性插值通过寻找距离这个对应坐标最近的4各像素点，来计算该点的值</li>
+</ul>
+<h4 id="grid-sample函数"><a href="#grid-sample函数" class="headerlink" title="grid_sample函数"></a>grid_sample函数</h4><ul>
+<li>torch.nn.functional.grid_sample(input, grid)</li>
+<li>给定输入和流场网格，使用网格中的输入像素位置计算输出</li>
+<li>grid的值在[-1, 1]之间，这是标准化后的结果，[-1, -1]对应左上角，[1, 1]对应右下角，通过grid的值与目标图像像素位置找到源图像一个浮点数坐标，通过双线性插值确认出目标图像像素</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成网格</span></span><br><span class="line">B, C, H, W = x.size()</span><br><span class="line">xx = torch.arange(<span class="number">0</span>, W).view(<span class="number">1</span>,<span class="number">-1</span>).repeat(H,<span class="number">1</span>)</span><br><span class="line">yy = torch.arange(<span class="number">0</span>, H).view(<span class="number">-1</span>,<span class="number">1</span>).repeat(<span class="number">1</span>,W)</span><br><span class="line">xx = xx.view(<span class="number">1</span>,<span class="number">1</span>,H,W).repeat(B,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">yy = yy.view(<span class="number">1</span>,<span class="number">1</span>,H,W).repeat(B,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">grid = torch.cat((xx,yy),<span class="number">1</span>).float()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 网格与上一层上采样流结合来扭曲图二，flo即为上一层的上采样流</span></span><br><span class="line">vgrid = Variable(grid) + flo </span><br><span class="line"></span><br><span class="line"><span class="comment"># 得到扭曲后的图像</span></span><br><span class="line">output = nn.functional.grid_sample(x, vgrid)</span><br></pre></td></tr></table></figure>
+<h4 id="存疑-1"><a href="#存疑-1" class="headerlink" title="存疑"></a>存疑</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mask = torch.autograd.Variable(torch.ones(x.size())).cuda()</span><br><span class="line">mask = nn.functional.grid_sample(mask, vgrid)</span><br><span class="line"></span><br><span class="line">mask[mask&lt;<span class="number">0.9999</span>] = <span class="number">0</span></span><br><span class="line">mask[mask&gt;<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> output*mask</span><br><span class="line"><span class="comment"># 功能上是将mask中大于0的变为1,0不变</span></span><br><span class="line"><span class="comment"># 作用是？？</span></span><br></pre></td></tr></table></figure>
+<h3 id="成本量层"><a href="#成本量层" class="headerlink" title="成本量层"></a>成本量层</h3><p>使用特征构建一个成本量：匹配成本为图像1特征与图像2扭曲特征的相关性<br>使用correlation_package包来计算两张图的相关性<br>输出通道为$(2*md +1)^2$其中md为maximun displacement<br>设x1为图像1,x2为图像2<br>计算公式：</p>
+<script type="math/tex; mode=display">cv^{l}(x1,x2) =   \frac{1}{N} * (c^{l}_{1}(x1))^{T} * c^{l}_{w}(x2)</script><p>T为转置，N为$c^{l}_{1}(x1)$列向量的长度<br>对于一个L层的特征金字塔，我们仅需要计算具有有限范围的d像素的部分成本量，即$|x1-x2|_{\infty} &lt; d$</p>
+<h4 id="存疑-2"><a href="#存疑-2" class="headerlink" title="存疑"></a>存疑</h4><ul>
+<li>为什么仅需要计算d像素范围的部分成本量</li>
+<li>x1-x2的无穷范数&lt;d，即两张图片的变换?</li>
+</ul>
+<h3 id="光流估算器"><a href="#光流估算器" class="headerlink" title="光流估算器"></a>光流估算器</h3><p>多层CNN，输入为成本量、图像1特征、上采样光流、上层特征<br>使用DenseNET</p>
+<h4 id="DenseNET"><a href="#DenseNET" class="headerlink" title="DenseNET"></a>DenseNET</h4><ul>
+<li></li>
+</ul>
+
     </div>
 </article>
 
@@ -387,13 +414,13 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/05/13/华为2019CodeCraft/">华为2019CodeCraft</a>
+                    <a href="/2019/07/10/近期需要整理/">近期需要整理</a>
                 </span>
             </li>
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/07/10/近期需要整理/">近期需要整理</a>
+                    <a href="/2019/05/13/华为2019CodeCraft/">华为2019CodeCraft</a>
                 </span>
             </li>
             
@@ -422,13 +449,13 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/PWC-NET/" style="font-size: 17.326271728864207px;" class="tag-cloud-link">PWC-NET</a>
+    <a href="/tags/PWC-NET/" style="font-size: 15.833814779968979px;" class="tag-cloud-link">PWC-NET</a>
     
-    <a href="/tags/优化问题/" style="font-size: 19.30737285909659px;" class="tag-cloud-link">优化问题</a>
+    <a href="/tags/优化问题/" style="font-size: 19.491488055257783px;" class="tag-cloud-link">优化问题</a>
     
-    <a href="/tags/CodeCraft/" style="font-size: 17.213381754998387px;" class="tag-cloud-link">CodeCraft</a>
+    <a href="/tags/其他/" style="font-size: 15.235787096313533px;" class="tag-cloud-link">其他</a>
     
-    <a href="/tags/其他/" style="font-size: 10.25964896272137px;" class="tag-cloud-link">其他</a>
+    <a href="/tags/CodeCraft/" style="font-size: 12.135458983056733px;" class="tag-cloud-link">CodeCraft</a>
     
 </div>
                 
@@ -460,6 +487,21 @@
 <div id="gal-gotop">
     <i class="fa fa-angle-up"></i>
 </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 <script src="/js/activate-power-mode.js"></script>
 <script>
