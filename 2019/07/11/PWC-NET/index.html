@@ -140,11 +140,11 @@
                         
                         
                         <li>
-                            <a href="/tags/优化问题/">优化问题</a>
+                            <a href="/tags/PWC-NET/">PWC-NET</a>
                         </li>
                         
                         <li>
-                            <a href="/tags/PWC-NET/">PWC-NET</a>
+                            <a href="/tags/优化问题/">优化问题</a>
                         </li>
                         
                         <li>
@@ -251,9 +251,9 @@
 <li>空洞卷积</li>
 </ul>
 <h2 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h2><p>PWC-NET的设计遵循简单和完善的原则：</p>
-<blockquote>
-<p>特征金字塔形加工，翘曲和成本量使用</p>
-</blockquote>
+<ul>
+<li>特征金字塔形加工，翘曲和成本量使用</li>
+</ul>
 <p>将图片投射进可学习的特征金字塔，PWC-NET网络使用当前光流估计来扭曲第二张图片学到的CNN特征，然后使用扭曲特征和第一章图片学到的CNN特征构建成本量，最后由CNN处理以估计光流</p>
 <p><img src="http://tva1.sinaimg.cn/large/0060lm7Tly1g4wx33ieh3j30od07gdh9.jpg" alt></p>
 <h3 id="特征金字塔"><a href="#特征金字塔" class="headerlink" title="特征金字塔"></a>特征金字塔</h3><p>由6层卷积组成，通道数目从原图像的3通道变为16、32、64、96、128、196<br>卷积层后跟进LeakyReLU层，参数设置为0.1</p>
@@ -263,12 +263,16 @@
 <h4 id="存疑"><a href="#存疑" class="headerlink" title="存疑"></a>存疑</h4><p>为什么不使用池化层？</p>
 <h3 id="翘曲层"><a href="#翘曲层" class="headerlink" title="翘曲层"></a>翘曲层</h3><p>使用上一层上采样流与图二特征结合，具体为使用双线形插值实现变形操作</p>
 <p>使用torch的grid_sample进行双线性插值：</p>
-<h4 id="双线性插值"><a href="#双线性插值" class="headerlink" title="双线性插值:"></a>双线性插值:</h4><blockquote>
-<p>作用是对生成的图像与原图想重映射，由于坐标为实数，所以用插值法(对应可以使用其他映射方法，如果图像变化剧烈，或许可以使用lagrange插值或者分段插值？)在图像处理中，双线性插值使用非常多，在数学上，双线性插值可以看成是两个变量间的一维线性插值的延伸，对应图像的2维。<br>假设源图像大小是m*n,目标图像大小是a*b，那么边长之比就是m/a, n/b， 这个比例通常不是整数。目标图像第(i,j)个像素点，对应原图像为(i*m/a, j*n/b)<br>这个对应坐标一般不是整数，双线性插值通过寻找距离这个对应坐标最近的4各像素点，来计算该点的值</p>
-</blockquote>
-<h4 id="grid-sample函数"><a href="#grid-sample函数" class="headerlink" title="grid_sample函数"></a>grid_sample函数</h4><blockquote>
-<p>torch.nn.functional.grid_sample(input, grid)<br>给定输入和流场网格，使用网格中的输入像素位置计算输出<br>grid的值在[-1, 1]之间，这是标准化后的结果，[-1, -1]对应左上角，[1, 1]对应右下角，通过grid的值与目标图像像素位置找到源图像一个浮点数坐标，通过双线性插值确认出目标图像像素</p>
-</blockquote>
+<h4 id="双线性插值"><a href="#双线性插值" class="headerlink" title="双线性插值:"></a>双线性插值:</h4><ul>
+<li>作用是对生成的图像与原图想重映射，由于坐标为实数，所以用插值法(对应可以使用其他映射方法，如果图像变化剧烈，或许可以使用lagrange插值或者分段插值？)在图像处理中，双线性插值使用非常多，在数学上，双线性插值可以看成是两个变量间的一维线性插值的延伸，对应图像的2维。</li>
+<li>假设源图像大小是m*n,目标图像大小是a*b，那么边长之比就是m/a, n/b， 这个比例通常不是整数。目标图像第(i,j)个像素点，对应原图像为(i*m/a, j*n/b)</li>
+<li>这个对应坐标一般不是整数，双线性插值通过寻找距离这个对应坐标最近的4各像素点，来计算该点的值</li>
+</ul>
+<h4 id="grid-sample函数"><a href="#grid-sample函数" class="headerlink" title="grid_sample函数"></a>grid_sample函数</h4><ul>
+<li>torch.nn.functional.grid_sample(input, grid)</li>
+<li>给定输入和流场网格，使用网格中的输入像素位置计算输出</li>
+<li>grid的值在[-1, 1]之间，这是标准化后的结果，[-1, -1]对应左上角，[1, 1]对应右下角，通过grid的值与目标图像像素位置找到源图像一个浮点数坐标，通过双线性插值确认出目标图像像素</li>
+</ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成网格</span></span><br><span class="line">B, C, H, W = x.size()</span><br><span class="line">xx = torch.arange(<span class="number">0</span>, W).view(<span class="number">1</span>,<span class="number">-1</span>).repeat(H,<span class="number">1</span>)</span><br><span class="line">yy = torch.arange(<span class="number">0</span>, H).view(<span class="number">-1</span>,<span class="number">1</span>).repeat(<span class="number">1</span>,W)</span><br><span class="line">xx = xx.view(<span class="number">1</span>,<span class="number">1</span>,H,W).repeat(B,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">yy = yy.view(<span class="number">1</span>,<span class="number">1</span>,H,W).repeat(B,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">grid = torch.cat((xx,yy),<span class="number">1</span>).float()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 网格与上一层上采样流结合来扭曲图二，flo即为上一层的上采样流</span></span><br><span class="line">vgrid = Variable(grid) + flo </span><br><span class="line"></span><br><span class="line"><span class="comment"># 得到扭曲后的图像</span></span><br><span class="line">output = nn.functional.grid_sample(x, vgrid)</span><br></pre></td></tr></table></figure>
 
 <h4 id="存疑-1"><a href="#存疑-1" class="headerlink" title="存疑"></a>存疑</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mask = torch.autograd.Variable(torch.ones(x.size())).cuda()</span><br><span class="line">mask = nn.functional.grid_sample(mask, vgrid)</span><br><span class="line"></span><br><span class="line">mask[mask&lt;<span class="number">0.9999</span>] = <span class="number">0</span></span><br><span class="line">mask[mask&gt;<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> output*mask</span><br><span class="line"><span class="comment"># 功能上是将mask中大于0的变为1,0不变</span></span><br><span class="line"><span class="comment"># 作用是？？</span></span><br></pre></td></tr></table></figure>
@@ -440,6 +444,12 @@
             
             <li class="list-group-item">
                 <span class="post-title">
+                    <a href="/2019/07/11/PWC-NET/">PWC-NET</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
                     <a href="/2019/05/10/helloworld/">HelloWorld</a>
                 </span>
             </li>
@@ -447,12 +457,6 @@
             <li class="list-group-item">
                 <span class="post-title">
                     <a href="/2019/05/14/优化问题/">优化问题</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/07/11/PWC-NET/">PWC-NET</a>
                 </span>
             </li>
             
@@ -493,13 +497,13 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/优化问题/" style="font-size: 8.260727721359581px;" class="tag-cloud-link">优化问题</a>
+    <a href="/tags/PWC-NET/" style="font-size: 11.27868841755468px;" class="tag-cloud-link">PWC-NET</a>
     
-    <a href="/tags/PWC-NET/" style="font-size: 13.710822770427919px;" class="tag-cloud-link">PWC-NET</a>
+    <a href="/tags/优化问题/" style="font-size: 16.15983287437563px;" class="tag-cloud-link">优化问题</a>
     
-    <a href="/tags/CodeCraft/" style="font-size: 14.1866916501037px;" class="tag-cloud-link">CodeCraft</a>
+    <a href="/tags/CodeCraft/" style="font-size: 11.050553793755526px;" class="tag-cloud-link">CodeCraft</a>
     
-    <a href="/tags/其他/" style="font-size: 11.055634970768313px;" class="tag-cloud-link">其他</a>
+    <a href="/tags/其他/" style="font-size: 19.345000473220697px;" class="tag-cloud-link">其他</a>
     
 </div>
                 
@@ -530,22 +534,7 @@
 <!-- 回到顶端 -->
 <div id="gal-gotop">
     <i class="fa fa-angle-up"></i>
-</div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 <script src="/js/activate-power-mode.js"></script>
 <script>
