@@ -10,7 +10,7 @@
     
     
     
-    <title>404 | lzycode</title>
+    <title>torchvision | lzycode</title>
     <link href="”http://www.lzycode.top“" rel="”prefetch”">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -190,10 +190,105 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 gal-right" id="mainstay">
-                    <!-- 搜索页面(尽可能接近ZanBlog搜索功能) -->
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="http://www.lzycode.top">lzycode</a>
+        >
+        <span>torchvision</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2019/07/20/torchvision/">torchvision</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/torchvision/">torchvision</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2019-07-20
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2019/07/20/torchvision/">torchvision</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2019-07-20
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/torchvision/">torchvision</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="entry">
+             <!--02-->
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#torchvision"><span class="toc-text">torchvision</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#持续更新中ing"><span class="toc-text">(持续更新中ing)</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#数据集-datasets"><span class="toc-text">数据集 datasets</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Datasets-ImageFolder"><span class="toc-text">　Datasets.ImageFolder</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变换-transforms"><span class="toc-text">变换 transforms</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#transforms-Compose"><span class="toc-text">transforms.Compose()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transforms-RandomResizedCrop"><span class="toc-text">transforms.RandomResizedCrop()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transforms-RandomHorizontalFlip-p-0-5"><span class="toc-text">transforms.RandomHorizontalFlip(p=0.5)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transforms-Normalize-mean-std"><span class="toc-text">　transforms.Normalize(mean, std)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型-models"><span class="toc-text">模型 models</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#torchvision-models"><span class="toc-text">torchvision.models()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#utils"><span class="toc-text">　utils</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#utils-make-grid"><span class="toc-text">　utils.make_grid</span></a></li></ol></li>
+</div>
+        
+        
+    </div>
+    <div class="content-article">
+        <a id="more"></a>
+<h1 id="torchvision"><a href="#torchvision" class="headerlink" title="torchvision"></a>torchvision</h1><h4 id="持续更新中ing"><a href="#持续更新中ing" class="headerlink" title="(持续更新中ing)"></a>(持续更新中ing)</h4><h2 id="数据集-datasets"><a href="#数据集-datasets" class="headerlink" title="数据集 datasets"></a>数据集 datasets</h2><h3 id="Datasets-ImageFolder"><a href="#Datasets-ImageFolder" class="headerlink" title="　Datasets.ImageFolder"></a>　Datasets.ImageFolder</h3><p>DataSets.ImageFolder(root, transform=None, target_tranform=None,loader=default_loader)<br>ImageFolder假设所有的数据按文件夹保存好，每个文件夹下面存储同一类别的图片，文件夹的名字为分类的名字</p>
+<ul>
+<li>root:在指定的root目录下寻找图片</li>
+<li>transform:对image进行转换操作</li>
+<li>target_transform:对label进行变换</li>
+<li>loader:指定加载图片的函数，默认是读取PIL image对象</li>
+</ul>
+<h2 id="变换-transforms"><a href="#变换-transforms" class="headerlink" title="变换 transforms"></a>变换 transforms</h2><h3 id="transforms-Compose"><a href="#transforms-Compose" class="headerlink" title="transforms.Compose()"></a>transforms.Compose()</h3><p>将多个transforms组合</p>
+<h3 id="transforms-RandomResizedCrop"><a href="#transforms-RandomResizedCrop" class="headerlink" title="transforms.RandomResizedCrop()"></a>transforms.RandomResizedCrop()</h3><p>transforms.RandomResizedCrop(size, scale=(0.008, 1.0), ratio=(0.75, 1.333333), interpolation=2)<br>随机大小，随机长度比裁剪原始图片，最后将图片resize到设定好的大小</p>
+<ul>
+<li>size:输出图片的分辨率</li>
+<li>scale:随机crop的大小区间，scale(0.08, 1.0)表示随机crop出来的图片会在0.08到1倍之间</li>
+<li>ratio:随机长度比区间</li>
+<li>interpolation:插值的方法，默认为双线性插值</li>
+</ul>
+<h3 id="transforms-RandomHorizontalFlip-p-0-5"><a href="#transforms-RandomHorizontalFlip-p-0-5" class="headerlink" title="transforms.RandomHorizontalFlip(p=0.5)"></a>transforms.RandomHorizontalFlip(p=0.5)</h3><p>以概率p对图片进行水平翻转，p默认为0.5</p>
+<h3 id="transforms-Normalize-mean-std"><a href="#transforms-Normalize-mean-std" class="headerlink" title="　transforms.Normalize(mean, std)"></a>　transforms.Normalize(mean, std)</h3><p>对数据按通道进行标准化，即先减去均值mean，再除以标准差std</p>
+<h2 id="模型-models"><a href="#模型-models" class="headerlink" title="模型 models"></a>模型 models</h2><h3 id="torchvision-models"><a href="#torchvision-models" class="headerlink" title="torchvision.models()"></a>torchvision.models()</h3><p>这个方法里面包含了alexnet、densenet、inception、resnet、squeezenet、vgg等常用的网络结构，并提供了预训练模型参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = torchvision.models.resnet50(pretrained=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>导入resnet50的预训练模型<br>如果只需要网络结构，不需要参数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = torchvision.models.resnet50(pretrained=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure></p>
+<p>pretrained 默认为False</p>
+<h2 id="utils"><a href="#utils" class="headerlink" title="　utils"></a>　utils</h2><h3 id="utils-make-grid"><a href="#utils-make-grid" class="headerlink" title="　utils.make_grid"></a>　utils.make_grid</h3><p>torchvision.utils.make_grid(tensor, nrow=8, padding=2, normalize=Flase, range=None, scale_each=False)</p>
+<p>将batch个图片组成一张，nrow表示一行多少张图<br>padding为2,则为图片先填充再连接，其中高度增加2*2=4，在横向上两张图之间只有一个padding，而不是两个</p>
 
-<!-- 404 自定义页面 -->
-<!-- 有其他想自定义的page在这里添加判断条件, 并且写好对应的模板渲染文件 -->
+    </div>
+</article>
+
+
+<div id="comments-template"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script>
+	if(!window.commentConfig) {
+      window.commentConfig = {}
+      window.commentConfig.title = 'torchvision'
+    }
+</script>
 
                 </div>
                 <aside class="col-md-4 gal-left" id="sidebar">
@@ -358,13 +453,13 @@
 
                 
                 <li>
-                    <a href="/404/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                    <a href="/2019/07/20/torchvision/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
                 </li>
                 
                 
                 
                 <li>
-                    <a href="/404/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                    <a href="/2019/07/20/torchvision/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
                 </li>
                 
             </ul>
@@ -372,17 +467,17 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/PWC-NET/" style="font-size: 18.389085847540183px;" class="tag-cloud-link">PWC-NET</a>
+    <a href="/tags/PWC-NET/" style="font-size: 17.566978552354236px;" class="tag-cloud-link">PWC-NET</a>
     
-    <a href="/tags/torch/" style="font-size: 8.497603566011975px;" class="tag-cloud-link">torch</a>
+    <a href="/tags/torch/" style="font-size: 12.938865175530427px;" class="tag-cloud-link">torch</a>
     
-    <a href="/tags/torchvision/" style="font-size: 9.46404765109552px;" class="tag-cloud-link">torchvision</a>
+    <a href="/tags/torchvision/" style="font-size: 14.327183834096527px;" class="tag-cloud-link">torchvision</a>
     
-    <a href="/tags/优化问题/" style="font-size: 9.467825266423143px;" class="tag-cloud-link">优化问题</a>
+    <a href="/tags/优化问题/" style="font-size: 14.019872110673905px;" class="tag-cloud-link">优化问题</a>
     
-    <a href="/tags/其他/" style="font-size: 8.987782736904984px;" class="tag-cloud-link">其他</a>
+    <a href="/tags/其他/" style="font-size: 9.606213820037992px;" class="tag-cloud-link">其他</a>
     
-    <a href="/tags/CodeCraft/" style="font-size: 15.313178883772732px;" class="tag-cloud-link">CodeCraft</a>
+    <a href="/tags/CodeCraft/" style="font-size: 17.24049560600919px;" class="tag-cloud-link">CodeCraft</a>
     
 </div>
                 
@@ -470,7 +565,7 @@
 <script src="https://myau.moe/js/comment/gitment.browser.js"></script>
 <script>
     if(window.commentConfig) {
-      window.commentConfig.id = 'Sat May 11 2019 12:40:58 GMT+0800'
+      window.commentConfig.id = 'Sat Jul 20 2019 17:32:45 GMT+0800'
       window.commentConfig.owner = 'liziyang1998'
       window.commentConfig.repo = 'comment'
       window.commentConfig.client_id = 'aadd418b6b9ea998fcd9'
@@ -478,7 +573,7 @@
       window.commentConfig.redirect_uri = 'http://www.lzycode.top/'
     } else {
       window.commentConfig = {
-      	id: 'Sat May 11 2019 12:40:58 GMT+0800',
+      	id: 'Sat Jul 20 2019 17:32:45 GMT+0800',
         owner: 'liziyang1998',
         repo: 'comment',
         client_id: 'aadd418b6b9ea998fcd9',

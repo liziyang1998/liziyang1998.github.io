@@ -10,7 +10,7 @@
     
     
     
-    <title>404 | lzycode</title>
+    <title>torch | lzycode</title>
     <link href="”http://www.lzycode.top“" rel="”prefetch”">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -190,10 +190,102 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 gal-right" id="mainstay">
-                    <!-- 搜索页面(尽可能接近ZanBlog搜索功能) -->
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="http://www.lzycode.top">lzycode</a>
+        >
+        <span>torch</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2019/07/20/torch/">torch</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/torch/">torch</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2019-07-20
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2019/07/20/torch/">torch</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2019-07-20
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/torch/">torch</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="entry">
+             <!--02-->
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#torch"><span class="toc-text">torch</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#持续更新中ing"><span class="toc-text">(持续更新中ing)</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#数据处理部分"><span class="toc-text">数据处理部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#utils-data-DataLoader"><span class="toc-text">utils.data.DataLoader()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DataLoader类"><span class="toc-text">DataLoader类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DataLoaderIter类"><span class="toc-text">DataLoaderIter类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#model部分"><span class="toc-text">model部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#model-train-和model-eval"><span class="toc-text">model.train()和model.eval()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化器optim"><span class="toc-text">优化器optim</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#torch-optim"><span class="toc-text">torch.optim</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#optim-lr-scheduler"><span class="toc-text">optim.lr_scheduler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step"><span class="toc-text">step</span></a></li></ol></li>
+</div>
+        
+        
+    </div>
+    <div class="content-article">
+        <a id="more"></a>
+<h1 id="torch"><a href="#torch" class="headerlink" title="torch"></a>torch</h1><h4 id="持续更新中ing"><a href="#持续更新中ing" class="headerlink" title="(持续更新中ing)"></a>(持续更新中ing)</h4><h2 id="数据处理部分"><a href="#数据处理部分" class="headerlink" title="数据处理部分"></a>数据处理部分</h2><h3 id="utils-data-DataLoader"><a href="#utils-data-DataLoader" class="headerlink" title="utils.data.DataLoader()"></a>utils.data.DataLoader()</h3><p>该接口主要用来将自定义的数据读取接口的输出或者Pytorch已有的数据读取接口的输入按照batch size 封装成Tensor，后续只需要再包装成Variable即可作为模型的输入 </p>
+<h4 id="DataLoader类"><a href="#DataLoader类" class="headerlink" title="DataLoader类"></a>DataLoader类</h4><p>__init__函数中几个重要的输入</p>
+<ul>
+<li>dataset，这个是pytorch已有的数据读取接口或者自定义的数据读取接口的输出 </li>
+<li>batch_size， </li>
+<li>shuffle，一般在训练数据中采用乱序 </li>
+<li>num_worker，几个进程来导入数据 </li>
+</ul>
+<p>当我们使用训练数据训练的时候，会使用__iter__方法，返回的是DataLoaderIter类</p>
+<h4 id="DataLoaderIter类"><a href="#DataLoaderIter类" class="headerlink" title="DataLoaderIter类"></a>DataLoaderIter类</h4><p>__next__函数<br>获取长度为batch_size的列表，然后将batch_size个tuple(每个tuple长度为2，第一个值是数据，Tensor类型，第二个值是标签，int类型)封装成一个list，这个list长度为2，两个值都是Tensor，第一个是batch_size个数据组成的Tensor，第二个是batch_size个标签组成的Tensor </p>
+<h2 id="model部分"><a href="#model部分" class="headerlink" title="model部分"></a>model部分</h2><h3 id="model-train-和model-eval"><a href="#model-train-和model-eval" class="headerlink" title="model.train()和model.eval()"></a>model.train()和model.eval()</h3><p>model.train让model变成训练模式，此时dropout和batch normalization的操作在训练中起到防止网络过拟合的问题</p>
+<p>model.eval会把BN和dropout固定住，用训练好的值，不然一旦test数据的batch_size过小，很容易就被BN层导致生成图片颜色失真极大</p>
+<h2 id="优化器optim"><a href="#优化器optim" class="headerlink" title="优化器optim"></a>优化器optim</h2><h3 id="torch-optim"><a href="#torch-optim" class="headerlink" title="torch.optim"></a>torch.optim</h3><p>使用torch.optim，构建一个optimizer对象，能保存当前的参数状态并且基于计算梯度更新参数</p>
+<p>要构建一个优化器，必须给一个包含参数进行优化<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">0.01</span>, momentum=<span class="number">0.9</span>)</span><br></pre></td></tr></table></figure></p>
+<p>SGD 随机梯度下降，最基础的优化方法，将数据拆分后再分批不断放入NN中计算，加速了NN的训练</p>
+<p>Momentum 权重衰减<br>传统的W的参数更新是将W的参数累加一个负的学习率乘以矫正值,Momentum的参数更新是借鉴动量的原理</p>
+<h3 id="optim-lr-scheduler"><a href="#optim-lr-scheduler" class="headerlink" title="optim.lr_scheduler"></a>optim.lr_scheduler</h3><p>该方法提供了多种基于epoch训练次数进行学习率调整的方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optim.lr_scheduler.StepLR(optimizer, step_size, gamma=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>当epoch每过step_size的时候，学习率变为初始的gamma倍</p>
+<h3 id="step"><a href="#step" class="headerlink" title="step"></a>step</h3><p>通常有optimizer.step()和scheduler.step()两种</p>
+<p>优化器optimizer的作用是根据网络反向传播的梯度信息来更新网络的参数，以起到降低loss的作用<br>step函数使用的是参数空间的grad，也就是当前参数空间对应的梯度，即如果在step之前不清零，那么使用的这个grad会同上一个mini-batch相关，因为每个batch训练假定batch的大小就是训练集的大小，所以每训练一次更新一次参数，即optimizer.step()<br>而scheduler.step()根据pytorch的定义是用来更新优化器的学习率的，所以一般按照epoch为单位进行更新，即多少个epoch更新一次学习率</p>
 
-<!-- 404 自定义页面 -->
-<!-- 有其他想自定义的page在这里添加判断条件, 并且写好对应的模板渲染文件 -->
+    </div>
+</article>
+
+
+<div id="comments-template"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script>
+	if(!window.commentConfig) {
+      window.commentConfig = {}
+      window.commentConfig.title = 'torch'
+    }
+</script>
 
                 </div>
                 <aside class="col-md-4 gal-left" id="sidebar">
@@ -358,13 +450,13 @@
 
                 
                 <li>
-                    <a href="/404/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                    <a href="/2019/07/20/torch/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
                 </li>
                 
                 
                 
                 <li>
-                    <a href="/404/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                    <a href="/2019/07/20/torch/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
                 </li>
                 
             </ul>
@@ -372,17 +464,17 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/PWC-NET/" style="font-size: 18.389085847540183px;" class="tag-cloud-link">PWC-NET</a>
+    <a href="/tags/PWC-NET/" style="font-size: 16.93652689578015px;" class="tag-cloud-link">PWC-NET</a>
     
-    <a href="/tags/torch/" style="font-size: 8.497603566011975px;" class="tag-cloud-link">torch</a>
+    <a href="/tags/torch/" style="font-size: 11.22299401898256px;" class="tag-cloud-link">torch</a>
     
-    <a href="/tags/torchvision/" style="font-size: 9.46404765109552px;" class="tag-cloud-link">torchvision</a>
+    <a href="/tags/torchvision/" style="font-size: 17.432349548748498px;" class="tag-cloud-link">torchvision</a>
     
-    <a href="/tags/优化问题/" style="font-size: 9.467825266423143px;" class="tag-cloud-link">优化问题</a>
+    <a href="/tags/优化问题/" style="font-size: 13.12696262265106px;" class="tag-cloud-link">优化问题</a>
     
-    <a href="/tags/其他/" style="font-size: 8.987782736904984px;" class="tag-cloud-link">其他</a>
+    <a href="/tags/其他/" style="font-size: 19.955676275357067px;" class="tag-cloud-link">其他</a>
     
-    <a href="/tags/CodeCraft/" style="font-size: 15.313178883772732px;" class="tag-cloud-link">CodeCraft</a>
+    <a href="/tags/CodeCraft/" style="font-size: 10.948761078287385px;" class="tag-cloud-link">CodeCraft</a>
     
 </div>
                 
@@ -470,7 +562,7 @@
 <script src="https://myau.moe/js/comment/gitment.browser.js"></script>
 <script>
     if(window.commentConfig) {
-      window.commentConfig.id = 'Sat May 11 2019 12:40:58 GMT+0800'
+      window.commentConfig.id = 'Sat Jul 20 2019 16:54:20 GMT+0800'
       window.commentConfig.owner = 'liziyang1998'
       window.commentConfig.repo = 'comment'
       window.commentConfig.client_id = 'aadd418b6b9ea998fcd9'
@@ -478,7 +570,7 @@
       window.commentConfig.redirect_uri = 'http://www.lzycode.top/'
     } else {
       window.commentConfig = {
-      	id: 'Sat May 11 2019 12:40:58 GMT+0800',
+      	id: 'Sat Jul 20 2019 16:54:20 GMT+0800',
         owner: 'liziyang1998',
         repo: 'comment',
         client_id: 'aadd418b6b9ea998fcd9',
