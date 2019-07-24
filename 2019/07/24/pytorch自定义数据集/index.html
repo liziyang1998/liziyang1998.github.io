@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Ziyang Li">
+    
+    
+    
+    
+    
+    
+    <title>pytorch自定义数据集 | lzycode</title>
+    <link href="”http://www.lzycode.top“" rel="”prefetch”">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/aos.js"></script>
+    <script src="/js/highslide/highslide-full.min.js"></script>
+    <link rel="stylesheet" href="/js/highslide/highslide.css">
+    <style type="text/css">
+        @media (max-width: 768px) {
+            body {
+                background-color: #f0f0f0;
+                background: url('/imgs/xsbg.jpg');
+                background-attachment: fixed;
+            }
+        }
+    </style>
+    
+    <!--<script type="text/javascript">
+      if (document.images) {
+        var avatar = new Image();
+        avatar.src = '/imgs/http:/puisqm7fx.bkt.clouddn.com/logo.jpg'
+        var previews = 'http://puisqm7fx.bkt.clouddn.com/preview3.jpg,http://puisqm7fx.bkt.clouddn.com/preview4.jpg,http://puisqm7fx.bkt.clouddn.com/preview1.jpg,http://puisqm7fx.bkt.clouddn.com/preview5.jpg,http://puisqm7fx.bkt.clouddn.com/preview2.jpg'.split(',')
+        var previewsPreLoad = []
+        for(var i = 0; i < length; i++) {
+          previewsPreLoad.push(new Image())
+          previewsPreLoad[previewsPreLoad.length - 1].src = '/imgs/preview' + previews[i]
+        }
+      }
+    </script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head></html>
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- 背景轮播图功能 -->
+    <section class="hidden-xs">
+    <ul class="cb-slideshow">
+        <li><span>天若</span></li>
+        <li><span>有情</span></li>
+        <li><span>天亦老</span></li>
+        <li><span>我为</span></li>
+        <li><span>长者</span></li>
+        <li><span>续一秒</span></li>
+    </ul>
+</section>
+    <!-- 欧尼酱功能, 谁用谁知道 -->
+    
+    <header class="navbar navbar-inverse" id="gal-header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".bs-navbar-collapse" aria-expanded="false">
+                <span class="fa fa-lg fa-reorder"></span>
+            </button>
+            <a href="http://www.lzycode.top">
+                
+                <style>
+                    #gal-header .navbar-brand {
+                        height: 54px;
+                        line-height: 24px;
+                        font-size: 28px;
+                        opacity: 1;
+                        background-color: rgba(0,0,0,0);
+                        text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #228DFF,0 0 35px #228DFF,0 0 40px #228DFF,0 0 50px #228DFF,0 0 75px #228DFF;
+                    }
+                </style>
+                <!-- 这里使用文字(navbar_text or config.title) -->
+                <div class="navbar-brand">lzycode</div>
+                
+            </a>
+        </div>
+        <div class="collapse navbar-collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav" id="menu-gal">
+                
+                
+                <li class>
+                    <a href="/">
+                        <i class="fa fa-home"></i>首页
+                    </a>
+                </li>
+                
+                
+                
+                <li class>
+                    <a href="/archives">
+                        <i class="fa fa-archive"></i>归档
+                    </a>
+                </li>
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-list"></i>分类
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/categories/pytorch/">pytorch</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/人工智能/">人工智能</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/其他/">其他</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/比赛/">比赛</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                
+                <li class="dropdown">
+                    <!-- TODO 添加hover dropdown效果 -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-hover="dropdown">
+                        <i class="fa fa-tags"></i>标签
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li>
+                            <a href="/tags/自定义数据集/">自定义数据集</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/torchvision/">torchvision</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/PWC-NET/">PWC-NET</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/torch/">torch</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/优化问题/">优化问题</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/迁移学习/">迁移学习</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/其他/">其他</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/CodeCraft/">CodeCraft</a>
+                        </li>
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+                
+                
+                
+                <li class>
+                    <a href="/about">
+                        <i class="fa fa-user"></i>关于我
+                    </a>
+                </li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</header>
+    <div id="gal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 gal-right" id="mainstay">
+                    
+<article class="article well article-body" id="article">
+    <div class="breadcrumb">
+        <i class="fa fa-home"></i>
+        <a href="http://www.lzycode.top">lzycode</a>
+        >
+        <span>pytorch自定义数据集</span>
+    </div>
+    <!-- 大型设备详细文章 -->
+    <div class="hidden-xs">
+        <div class="title-article">
+            <h1>
+                <a href="/2019/07/24/pytorch自定义数据集/">pytorch自定义数据集</a>
+            </h1>
+        </div>
+        <div class="tag-article">
+            
+            <span class="label label-gal">
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/自定义数据集/">自定义数据集</a>
+                
+            </span>
+            
+            <span class="label label-gal">
+                <i class="fa fa-calendar"></i> 2019-07-24
+            </span>
+            
+        </div>
+    </div>
+    <!-- 小型设备详细文章 -->
+    <div class="visible-xs">
+        <center>
+            <div class="title-article">
+                <h4>
+                    <a href="/2019/07/24/pytorch自定义数据集/">pytorch自定义数据集</a>
+                </h4>
+            </div>
+            <p>
+                <i class="fa fa-calendar"></i> 2019-07-24
+            </p>
+            <p>
+                
+                <i class="fa fa-tags"></i>
+                
+                <a href="/tags/自定义数据集/">自定义数据集</a>
+                
+                
+                
+            </p>
+        </center>
+    </div>
+    <div class="entry">
+             <!--02-->
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pytorch自定义数据集"><span class="toc-text">pytorch自定义数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#已有数据集"><span class="toc-text">　已有数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义数据集"><span class="toc-text">自定义数据集</span></a></li></ol></li></ol>
+</div>
+        
+        
+    </div>
+    <div class="content-article">
+        <a id="more"></a>
+<h1 id="pytorch自定义数据集"><a href="#pytorch自定义数据集" class="headerlink" title="pytorch自定义数据集"></a>pytorch自定义数据集</h1><h2 id="已有数据集"><a href="#已有数据集" class="headerlink" title="　已有数据集"></a>　已有数据集</h2><p>torchvision.datasets里面定义了一些训练集，有不仅限于下列</p>
+<ul>
+<li>MNIST</li>
+<li>COCO</li>
+<li>LSUN</li>
+<li>Imagenet-12</li>
+<li>CIFAR10</li>
+</ul>
+<p>这些数据集可以直接使用</p>
+<h2 id="自定义数据集"><a href="#自定义数据集" class="headerlink" title="自定义数据集"></a>自定义数据集</h2><p>大多数情况下需要我们自己定义数据集，载入自己的数据<br>对于图片数据，我们有方法datasets.ImageFolder()，但是限制比较大，那么可以参考ImageFolder的源码，改写成适配我们数据的载入器</p>
+<p>源码如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageFolder</span><span class="params">(data.Dataset)</span>:</span></span><br><span class="line">    <span class="string">"""A generic data loader where the images are arranged in this way: ::</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        root/dog/xxx.png</span></span><br><span class="line"><span class="string">        root/dog/xxy.png</span></span><br><span class="line"><span class="string">        root/dog/xxz.png</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        root/cat/123.png</span></span><br><span class="line"><span class="string">        root/cat/nsdf3.png</span></span><br><span class="line"><span class="string">        root/cat/asd932_.png</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        root (string): Root directory path.</span></span><br><span class="line"><span class="string">        transform (callable, optional): A function/transform that  takes in an PIL image</span></span><br><span class="line"><span class="string">            and returns a transformed version. E.g, ``transforms.RandomCrop``</span></span><br><span class="line"><span class="string">        target_transform (callable, optional): A function/transform that takes in the</span></span><br><span class="line"><span class="string">            target and transforms it.</span></span><br><span class="line"><span class="string">        loader (callable, optional): A function to load an image given its path.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">     Attributes:</span></span><br><span class="line"><span class="string">        classes (list): List of the class names.</span></span><br><span class="line"><span class="string">        class_to_idx (dict): Dict with items (class_name, class_index).</span></span><br><span class="line"><span class="string">        imgs (list): List of (image path, class_index) tuples</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root, transform=None, target_transform=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 loader=default_loader)</span>:</span></span><br><span class="line">        classes, class_to_idx = find_classes(root)</span><br><span class="line">        imgs = make_dataset(root, class_to_idx)</span><br><span class="line">        <span class="keyword">if</span> len(imgs) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span>(RuntimeError(<span class="string">"Found 0 images in subfolders of: "</span> + root + <span class="string">"\n"</span></span><br><span class="line">                               <span class="string">"Supported image extensions are: "</span> + <span class="string">","</span>.join(IMG_EXTENSIONS)))</span><br><span class="line"></span><br><span class="line">        self.root = root</span><br><span class="line">        self.imgs = imgs</span><br><span class="line">        self.classes = classes</span><br><span class="line">        self.class_to_idx = class_to_idx</span><br><span class="line">        self.transform = transform</span><br><span class="line">        self.target_transform = target_transform</span><br><span class="line">        self.loader = loader</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            index (int): Index</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            tuple: (image, target) where target is class_index of the target class.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        path, target = self.imgs[index]</span><br><span class="line">        img = self.loader(path)</span><br><span class="line">        <span class="keyword">if</span> self.transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            img = self.transform(img)</span><br><span class="line">        <span class="keyword">if</span> self.target_transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            target = self.target_transform(target)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> img, target</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.imgs)</span><br></pre></td></tr></table></figure></p>
+<p>继承的类是torch.utils.data.Dataset,主要包含三个方法：<br>初始化__init<strong>，获取图像\</strong>getitem<strong>,数据集数量\</strong>len__。<br>init先通过find_classes函数得到分类的类别名和类别名与数字类别的映射关系字典。然后通过make_dataset函数得到images,这个images是一个列表，其中每一个值都是一个tuple,每个tuple包含两个元素：图像路径和标签。getitem方法中最重要的是img=self.loader(path)，表示读取数据</p>
+<p>从上面的ImageFolder我们按照逻辑自己定义数据接口，框架如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># You should build your custom dataset as below.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomDataset</span><span class="params">(torch.utils.data.Dataset)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># TODO</span></span><br><span class="line">        <span class="comment"># 1. Initialize file paths or a list of file names. </span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="comment"># TODO</span></span><br><span class="line">        <span class="comment"># 1. Read one data from file (e.g. using numpy.fromfile, PIL.Image.open).</span></span><br><span class="line">        <span class="comment"># 2. Preprocess the data (e.g. torchvision.Transform).</span></span><br><span class="line">        <span class="comment"># 3. Return a data pair (e.g. image and label).</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># You should change 0 to the total size of your dataset.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># You can then use the prebuilt data loader. </span></span><br><span class="line">custom_dataset = CustomDataset()</span><br><span class="line">train_loader = torch.utils.data.DataLoader(dataset=custom_dataset,</span><br><span class="line">                                           batch_size=<span class="number">64</span>, </span><br><span class="line">                                           shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>pytorch中和数据相关的类大部分继承一个类：torch.utils.data.Dataset，然后根据我们自己的需求改写其中init，getitem和len的方法即可</p>
+<p>拿PWC-NET的pytorch实现做例子<br>输入给模型的是两张图片，输出的是一个2通道的flo光流图片</p>
+<p>初始化部分需要图片地址，光流地址，注意是两张图片对应一个光流，getitem部分使用PIL读入图片再转成tensor存储，用自定义的函数加上numpy来读入2通道的光流图片再专程tensor存储。<br>详见代码注释<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 光度图转tensor，对于PIL读入的图片使用</span></span><br><span class="line">loader = transforms.Compose([</span><br><span class="line">    transforms.ToTensor()</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取光度图片</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_flow</span><span class="params">(path)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(path, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        magic = float(np.fromfile(f, np.float32, count = <span class="number">1</span>)[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">if</span> magic == <span class="number">202021.25</span>:</span><br><span class="line">            w, h = np.fromfile(f, np.int32, count = <span class="number">1</span>)[<span class="number">0</span>], np.fromfile(f, np.int32, count = <span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">            data = np.fromfile(f, np.float32, count = h*w*<span class="number">2</span>)</span><br><span class="line">            data.resize((h, w, <span class="number">2</span>))</span><br><span class="line">            <span class="keyword">return</span> data</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDataSet</span><span class="params">(Dataset)</span>:</span></span><br><span class="line">    <span class="comment"># data 为小数据集名字，一个大文件夹下有很多小文件夹</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, img_path, flo_path, data, convert)</span>:</span></span><br><span class="line">        self.img_path = os.path.join(img_path, data)</span><br><span class="line">        self.img_list = os.listdir(self.img_path)</span><br><span class="line">        self.img_list = sorted(self.img_list, key=<span class="keyword">lambda</span> x : int(x[<span class="number">8</span>:].split(<span class="string">'.'</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">        self.flo_path = os.path.join(flo_path, data)</span><br><span class="line">        self.flo_list = os.listdir(self.flo_path)</span><br><span class="line">        self.flo_list = sorted(self.flo_list, key=<span class="keyword">lambda</span> x : int(x[<span class="number">8</span>:].split(<span class="string">'.'</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">        self.num = len(os.listdir(self.flo_path))</span><br><span class="line">        self.convert = convert</span><br><span class="line">        print(<span class="string">'the number of &#123;&#125; data : &#123;&#125;'</span>.format(data, self.num))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.num</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="comment"># print(index)</span></span><br><span class="line">        <span class="comment"># print(self.img_list[index])</span></span><br><span class="line">        <span class="comment"># print(self.img_list[index+1])</span></span><br><span class="line">        <span class="comment"># print(self.flo_list[index])</span></span><br><span class="line">        <span class="comment"># print('********')</span></span><br><span class="line">        img1 = Image.open(os.path.join(self.img_path, self.img_list[index])).convert(<span class="string">'RGB'</span>)</span><br><span class="line">        img2 = Image.open(os.path.join(self.img_path, self.img_list[index + <span class="number">1</span>])).convert(<span class="string">'RGB'</span>)</span><br><span class="line">        flo = load_flow(os.path.join(self.flo_path, self.flo_list[index]))</span><br><span class="line"></span><br><span class="line">        img1 = self.convert(img1).unsqueeze(<span class="number">0</span>).to(device, torch.float)</span><br><span class="line">        img2 = self.convert(img2).unsqueeze(<span class="number">0</span>).to(device, torch.float)</span><br><span class="line">        flo = flo.transpose(<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">        flo = torch.from_numpy(flo.astype(np.float32))</span><br><span class="line"></span><br><span class="line">        sample = &#123;<span class="string">'img'</span> : [img1, img2],</span><br><span class="line">                  <span class="string">'flo'</span> : flo&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sample</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">image_datasets = MyDataSet(img_path = Image_Path, flo_path = Flo_Path, </span><br><span class="line">                                data = small_model[<span class="number">1</span>], convert=loader) </span><br><span class="line"></span><br><span class="line">dataloaders = DataLoader(image_datasets, batch_size=Batch_Size, shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></p>
+<p>要点和坑点</p>
+<ul>
+<li>os.listdir读入的不是有序的，需要自己处理排列成有序的图片顺序，因为两张连续的图片(两帧)对应一个光流图片，所以必须要求连续，故读完之后要排序</li>
+<li>PIL读入的图片是3通道的(h,w,c)c代表通道数目，而pytorch训练数据一般是4维(b,c,h,w)b是batch_size，c是通道数，所以读入之后需要Totensor，将3通道的顺序变成(c,h,w)，再使用unsqueeze(0)拓展第一维</li>
+<li>对于光流图片，也需要改变维度顺序，将第3维通道数目变到第1维去，再转成tensor训练</li>
+<li>对于自定义的数据集，getitem最后返回一个可供训练的tensor，包含两维，一维是image，一维是光流，而image是两张图片</li>
+<li>载入数据的时候加上shuffle不会破坏连续两张对应一个光流图片的逻辑，而只是打乱数据的顺序</li>
+</ul>
+
+    </div>
+</article>
+
+
+<div id="comments-template"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script>
+	if(!window.commentConfig) {
+      window.commentConfig = {}
+      window.commentConfig.title = 'pytorch自定义数据集'
+    }
+</script>
+
+                </div>
+                <aside class="col-md-4 gal-left" id="sidebar">
+    <!-- 此为sidebar的搜索框, 非搜索结果页面 -->
+<aside id="sidebar-search">
+    <div class="search hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <form class="form-inline clearfix" id="search-form" method="get" action="/search/index.html">
+            <input type="text" name="s" class="form-control" id="searchInput" placeholder="搜索文章~" autocomplete="off">
+            <button class="btn btn-danger btn-gal" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+</aside>
+    <aside id="sidebar-author">
+    <div class="panel panel-gal" data-aos="flip-right" data-aos-duration="3000">
+        <div class="panel-heading" style="text-align: center">
+            <i class="fa fa-quote-left"></i>
+            Ziyang Li
+            <i class="fa fa-quote-right"></i>
+        </div>
+        <div class="author-panel text-center">
+            <img src="http://puisqm7fx.bkt.clouddn.com/logo.jpg" width="140" height="140" alt="个人头像" class="author-image">
+            <p class="author-description"></p>
+        </div>
+    </div>
+</aside>
+    
+    <aside id="sidebar-recent_comments">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-comments"></i>
+            最新评论
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush"></ul>
+    </div>
+</aside>
+    
+    <!-- 要配置好leancloud才能开启此小工具 -->
+    
+    
+    <aside id="sidebar-recent_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            近期文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/24/pytorch自定义数据集/">pytorch自定义数据集</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/22/迁移学习/">迁移学习</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/20/torchvision/">torchvision</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/20/torch/">torch</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/11/PWC-NET/">PWC-NET</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/10/近期需要整理/">近期需要整理</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/14/优化问题/">优化问题</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/13/华为2019CodeCraft/">华为2019CodeCraft</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/10/helloworld/">HelloWorld</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="sidebar-rand_posts">
+    <div class="panel panel-gal recent hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel-heading">
+            <i class="fa fa-refresh"></i>
+            随机文章
+            <i class="fa fa-times-circle panel-remove"></i>
+            <i class="fa fa-chevron-circle-up panel-toggle"></i>
+        </div>
+        <ul class="list-group list-group-flush">
+            
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/10/helloworld/">HelloWorld</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/24/pytorch自定义数据集/">pytorch自定义数据集</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/20/torchvision/">torchvision</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/11/PWC-NET/">PWC-NET</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/20/torch/">torch</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/14/优化问题/">优化问题</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/22/迁移学习/">迁移学习</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/10/近期需要整理/">近期需要整理</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/13/华为2019CodeCraft/">华为2019CodeCraft</a>
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</aside>
+    
+    
+    <aside id="gal-sets">
+        <div class="panel panel-gal hidden-xs" data-aos="fade-up" data-aos-duration="2000">
+            <ul class="nav nav-pills pills-gal">
+
+                
+                <li>
+                    <a href="/2019/07/24/pytorch自定义数据集/index.html#sidebar-tags" data-toggle="tab" id="tags-tab">热门标签</a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/2019/07/24/pytorch自定义数据集/index.html#sidebar-links" data-toggle="tab" id="links-tab">个人链接</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content">
+                
+                <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
+    
+    <a href="/tags/自定义数据集/" style="font-size: 10.821937047707273px;" class="tag-cloud-link">自定义数据集</a>
+    
+    <a href="/tags/torchvision/" style="font-size: 9.665245324166884px;" class="tag-cloud-link">torchvision</a>
+    
+    <a href="/tags/PWC-NET/" style="font-size: 19.28632636262399px;" class="tag-cloud-link">PWC-NET</a>
+    
+    <a href="/tags/torch/" style="font-size: 13.036839646287376px;" class="tag-cloud-link">torch</a>
+    
+    <a href="/tags/优化问题/" style="font-size: 12.368797584405522px;" class="tag-cloud-link">优化问题</a>
+    
+    <a href="/tags/迁移学习/" style="font-size: 15.981636072185339px;" class="tag-cloud-link">迁移学习</a>
+    
+    <a href="/tags/其他/" style="font-size: 11.801735713166734px;" class="tag-cloud-link">其他</a>
+    
+    <a href="/tags/CodeCraft/" style="font-size: 11.700680005987547px;" class="tag-cloud-link">CodeCraft</a>
+    
+</div>
+                
+                
+                
+                <div class="links tab-pane nav bs-sidenav fade" id="sidebar-links">
+    
+    <li>
+        <a href="https://github.com/liziyang1998" target="_blank">Github</a>
+    </li>
+    
+</div>
+                
+            </div>
+        </div>
+    </aside>
+    
+</aside>
+            </div>
+        </div>
+    </div>
+    <footer id="gal-footer">
+    <div class="container">
+        Copyright © 2018 Ziyang Li Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+    </div>
+</footer>
+
+<!-- 回到顶端 -->
+<div id="gal-gotop">
+    <i class="fa fa-angle-up"></i>
+</div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/js/activate-power-mode.js"></script>
+<script>
+
+    // 配置highslide
+	hs.graphicsDir = '/js/highslide/graphics/'
+    hs.outlineType = "rounded-white";
+    hs.dimmingOpacity = 0.8;
+    hs.outlineWhileAnimating = true;
+    hs.showCredits = false;
+    hs.captionEval = "this.thumb.alt";
+    hs.numberPosition = "caption";
+    hs.align = "center";
+    hs.transitions = ["expand", "crossfade"];
+    hs.lang.number = '共%2张图, 当前是第%1张';
+    hs.addSlideshow({
+      interval: 5000,
+      repeat: true,
+      useControls: true,
+      fixedControls: "fit",
+      overlayOptions: {
+        opacity: 0.75,
+        position: "bottom center",
+        hideOnMouseOut: true
+      }
+    })
+
+    // 初始化aos
+    AOS.init({
+      duration: 1000,
+      delay: 0,
+      easing: 'ease-out-back'
+    });
+
+</script>
+<script>
+	POWERMODE.colorful = 'true';    // make power mode colorful
+	POWERMODE.shake = 'true';       // turn off shake
+	// TODO 这里根据具体情况修改
+	document.body.addEventListener('input', POWERMODE);
+</script>
+<script>
+    window.slideConfig = {
+      prefix: 'http://puisqm7fx.bkt.clouddn.com/background',
+      ext: 'jpg',
+      maxCount: '6'
+    }
+</script>
+<script src="/js/hs.js"></script>
+<script src="/js/blog.js"></script>
+
+
+
+<script src="https://myau.moe/js/comment/gitment.browser.js"></script>
+<script>
+    if(window.commentConfig) {
+      window.commentConfig.id = 'Wed Jul 24 2019 20:01:15 GMT+0800'
+      window.commentConfig.owner = 'liziyang1998'
+      window.commentConfig.repo = 'comment'
+      window.commentConfig.client_id = 'aadd418b6b9ea998fcd9'
+      window.commentConfig.client_secret = '663a715cbb9647f9be10d5a01ed3d221501f1ba7'
+      window.commentConfig.redirect_uri = 'http://www.lzycode.top/'
+    } else {
+      window.commentConfig = {
+      	id: 'Wed Jul 24 2019 20:01:15 GMT+0800',
+        owner: 'liziyang1998',
+        repo: 'comment',
+        client_id: 'aadd418b6b9ea998fcd9',
+        client_secret: '663a715cbb9647f9be10d5a01ed3d221501f1ba7',
+        redirect_uri: 'http://www.lzycode.top/'
+      }
+    }
+</script>
+<script src="/js/comment/gitment.js"></script>
+
+</html>
