@@ -111,19 +111,19 @@
                         
                         
                         <li>
-                            <a href="/categories/pytorch/">pytorch</a>
-                        </li>
-                        
-                        <li>
                             <a href="/categories/人工智能/">人工智能</a>
                         </li>
                         
                         <li>
-                            <a href="/categories/其他/">其他</a>
+                            <a href="/categories/pytorch/">pytorch</a>
                         </li>
                         
                         <li>
                             <a href="/categories/比赛/">比赛</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/其他/">其他</a>
                         </li>
                         
                         
@@ -144,14 +144,6 @@
                         
                         
                         <li>
-                            <a href="/tags/自定义数据集/">自定义数据集</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/tags/torchvision/">torchvision</a>
-                        </li>
-                        
-                        <li>
                             <a href="/tags/PWC-NET/">PWC-NET</a>
                         </li>
                         
@@ -160,11 +152,15 @@
                         </li>
                         
                         <li>
+                            <a href="/tags/自定义数据集/">自定义数据集</a>
+                        </li>
+                        
+                        <li>
                             <a href="/tags/优化问题/">优化问题</a>
                         </li>
                         
                         <li>
-                            <a href="/tags/迁移学习/">迁移学习</a>
+                            <a href="/tags/CodeCraft/">CodeCraft</a>
                         </li>
                         
                         <li>
@@ -172,7 +168,11 @@
                         </li>
                         
                         <li>
-                            <a href="/tags/CodeCraft/">CodeCraft</a>
+                            <a href="/tags/torchvision/">torchvision</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/tags/迁移学习/">迁移学习</a>
                         </li>
                         
                         
@@ -271,7 +271,8 @@
 </ul>
 <p>这些数据集可以直接使用</p>
 <h2 id="自定义数据集"><a href="#自定义数据集" class="headerlink" title="自定义数据集"></a>自定义数据集</h2><p>大多数情况下需要我们自己定义数据集，载入自己的数据<br>对于图片数据，我们有方法datasets.ImageFolder()，但是限制比较大，那么可以参考ImageFolder的源码，改写成适配我们数据的载入器</p>
-<p>源码如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageFolder</span><span class="params">(data.Dataset)</span>:</span></span><br><span class="line">    <span class="string">"""A generic data loader where the images are arranged in this way: ::</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        root/dog/xxx.png</span></span><br><span class="line"><span class="string">        root/dog/xxy.png</span></span><br><span class="line"><span class="string">        root/dog/xxz.png</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        root/cat/123.png</span></span><br><span class="line"><span class="string">        root/cat/nsdf3.png</span></span><br><span class="line"><span class="string">        root/cat/asd932_.png</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        root (string): Root directory path.</span></span><br><span class="line"><span class="string">        transform (callable, optional): A function/transform that  takes in an PIL image</span></span><br><span class="line"><span class="string">            and returns a transformed version. E.g, ``transforms.RandomCrop``</span></span><br><span class="line"><span class="string">        target_transform (callable, optional): A function/transform that takes in the</span></span><br><span class="line"><span class="string">            target and transforms it.</span></span><br><span class="line"><span class="string">        loader (callable, optional): A function to load an image given its path.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">     Attributes:</span></span><br><span class="line"><span class="string">        classes (list): List of the class names.</span></span><br><span class="line"><span class="string">        class_to_idx (dict): Dict with items (class_name, class_index).</span></span><br><span class="line"><span class="string">        imgs (list): List of (image path, class_index) tuples</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root, transform=None, target_transform=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 loader=default_loader)</span>:</span></span><br><span class="line">        classes, class_to_idx = find_classes(root)</span><br><span class="line">        imgs = make_dataset(root, class_to_idx)</span><br><span class="line">        <span class="keyword">if</span> len(imgs) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span>(RuntimeError(<span class="string">"Found 0 images in subfolders of: "</span> + root + <span class="string">"\n"</span></span><br><span class="line">                               <span class="string">"Supported image extensions are: "</span> + <span class="string">","</span>.join(IMG_EXTENSIONS)))</span><br><span class="line"></span><br><span class="line">        self.root = root</span><br><span class="line">        self.imgs = imgs</span><br><span class="line">        self.classes = classes</span><br><span class="line">        self.class_to_idx = class_to_idx</span><br><span class="line">        self.transform = transform</span><br><span class="line">        self.target_transform = target_transform</span><br><span class="line">        self.loader = loader</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            index (int): Index</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            tuple: (image, target) where target is class_index of the target class.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        path, target = self.imgs[index]</span><br><span class="line">        img = self.loader(path)</span><br><span class="line">        <span class="keyword">if</span> self.transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            img = self.transform(img)</span><br><span class="line">        <span class="keyword">if</span> self.target_transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            target = self.target_transform(target)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> img, target</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.imgs)</span><br></pre></td></tr></table></figure></p>
+<p>源码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageFolder</span><span class="params">(data.Dataset)</span>:</span></span><br><span class="line">    <span class="string">"""A generic data loader where the images are arranged in this way: ::</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        root/dog/xxx.png</span></span><br><span class="line"><span class="string">        root/dog/xxy.png</span></span><br><span class="line"><span class="string">        root/dog/xxz.png</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        root/cat/123.png</span></span><br><span class="line"><span class="string">        root/cat/nsdf3.png</span></span><br><span class="line"><span class="string">        root/cat/asd932_.png</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        root (string): Root directory path.</span></span><br><span class="line"><span class="string">        transform (callable, optional): A function/transform that  takes in an PIL image</span></span><br><span class="line"><span class="string">            and returns a transformed version. E.g, ``transforms.RandomCrop``</span></span><br><span class="line"><span class="string">        target_transform (callable, optional): A function/transform that takes in the</span></span><br><span class="line"><span class="string">            target and transforms it.</span></span><br><span class="line"><span class="string">        loader (callable, optional): A function to load an image given its path.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">     Attributes:</span></span><br><span class="line"><span class="string">        classes (list): List of the class names.</span></span><br><span class="line"><span class="string">        class_to_idx (dict): Dict with items (class_name, class_index).</span></span><br><span class="line"><span class="string">        imgs (list): List of (image path, class_index) tuples</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, root, transform=None, target_transform=None,</span></span></span><br><span class="line"><span class="function"><span class="params">                 loader=default_loader)</span>:</span></span><br><span class="line">        classes, class_to_idx = find_classes(root)</span><br><span class="line">        imgs = make_dataset(root, class_to_idx)</span><br><span class="line">        <span class="keyword">if</span> len(imgs) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span>(RuntimeError(<span class="string">"Found 0 images in subfolders of: "</span> + root + <span class="string">"\n"</span></span><br><span class="line">                               <span class="string">"Supported image extensions are: "</span> + <span class="string">","</span>.join(IMG_EXTENSIONS)))</span><br><span class="line"></span><br><span class="line">        self.root = root</span><br><span class="line">        self.imgs = imgs</span><br><span class="line">        self.classes = classes</span><br><span class="line">        self.class_to_idx = class_to_idx</span><br><span class="line">        self.transform = transform</span><br><span class="line">        self.target_transform = target_transform</span><br><span class="line">        self.loader = loader</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            index (int): Index</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            tuple: (image, target) where target is class_index of the target class.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        path, target = self.imgs[index]</span><br><span class="line">        img = self.loader(path)</span><br><span class="line">        <span class="keyword">if</span> self.transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            img = self.transform(img)</span><br><span class="line">        <span class="keyword">if</span> self.target_transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            target = self.target_transform(target)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> img, target</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.imgs)</span><br></pre></td></tr></table></figure>
 <p>继承的类是torch.utils.data.Dataset,主要包含三个方法：<br>初始化__init<strong>，获取图像\</strong>getitem<strong>,数据集数量\</strong>len__。<br>init先通过find_classes函数得到分类的类别名和类别名与数字类别的映射关系字典。然后通过make_dataset函数得到images,这个images是一个列表，其中每一个值都是一个tuple,每个tuple包含两个元素：图像路径和标签。getitem方法中最重要的是img=self.loader(path)，表示读取数据</p>
 <p>从上面的ImageFolder我们按照逻辑自己定义数据接口，框架如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># You should build your custom dataset as below.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomDataset</span><span class="params">(torch.utils.data.Dataset)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># TODO</span></span><br><span class="line">        <span class="comment"># 1. Initialize file paths or a list of file names. </span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">        <span class="comment"># TODO</span></span><br><span class="line">        <span class="comment"># 1. Read one data from file (e.g. using numpy.fromfile, PIL.Image.open).</span></span><br><span class="line">        <span class="comment"># 2. Preprocess the data (e.g. torchvision.Transform).</span></span><br><span class="line">        <span class="comment"># 3. Return a data pair (e.g. image and label).</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># You should change 0 to the total size of your dataset.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># You can then use the prebuilt data loader. </span></span><br><span class="line">custom_dataset = CustomDataset()</span><br><span class="line">train_loader = torch.utils.data.DataLoader(dataset=custom_dataset,</span><br><span class="line">                                           batch_size=<span class="number">64</span>, </span><br><span class="line">                                           shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></p>
 <p>pytorch中和数据相关的类大部分继承一个类：torch.utils.data.Dataset，然后根据我们自己的需求改写其中init，getitem和len的方法即可</p>
@@ -423,25 +424,13 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/05/10/helloworld/">HelloWorld</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/07/24/pytorch自定义数据集/">pytorch自定义数据集</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
-                    <a href="/2019/07/20/torchvision/">torchvision</a>
-                </span>
-            </li>
-            
-            <li class="list-group-item">
-                <span class="post-title">
                     <a href="/2019/07/11/PWC-NET/">PWC-NET</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/05/10/helloworld/">HelloWorld</a>
                 </span>
             </li>
             
@@ -453,13 +442,19 @@
             
             <li class="list-group-item">
                 <span class="post-title">
+                    <a href="/2019/07/24/pytorch自定义数据集/">pytorch自定义数据集</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
                     <a href="/2019/05/14/优化问题/">优化问题</a>
                 </span>
             </li>
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/07/22/迁移学习/">迁移学习</a>
+                    <a href="/2019/05/13/华为2019CodeCraft/">华为2019CodeCraft</a>
                 </span>
             </li>
             
@@ -471,7 +466,13 @@
             
             <li class="list-group-item">
                 <span class="post-title">
-                    <a href="/2019/05/13/华为2019CodeCraft/">华为2019CodeCraft</a>
+                    <a href="/2019/07/20/torchvision/">torchvision</a>
+                </span>
+            </li>
+            
+            <li class="list-group-item">
+                <span class="post-title">
+                    <a href="/2019/07/22/迁移学习/">迁移学习</a>
                 </span>
             </li>
             
@@ -500,21 +501,21 @@
                 
                 <div class="cloud-tags tab-pane nav bs-sidenav fade" id="sidebar-tags">
     
-    <a href="/tags/自定义数据集/" style="font-size: 10.821937047707273px;" class="tag-cloud-link">自定义数据集</a>
+    <a href="/tags/PWC-NET/" style="font-size: 10.739647605574143px;" class="tag-cloud-link">PWC-NET</a>
     
-    <a href="/tags/torchvision/" style="font-size: 9.665245324166884px;" class="tag-cloud-link">torchvision</a>
+    <a href="/tags/torch/" style="font-size: 19.86258031305011px;" class="tag-cloud-link">torch</a>
     
-    <a href="/tags/PWC-NET/" style="font-size: 19.28632636262399px;" class="tag-cloud-link">PWC-NET</a>
+    <a href="/tags/自定义数据集/" style="font-size: 14.476586653532095px;" class="tag-cloud-link">自定义数据集</a>
     
-    <a href="/tags/torch/" style="font-size: 13.036839646287376px;" class="tag-cloud-link">torch</a>
+    <a href="/tags/优化问题/" style="font-size: 9.244984756327487px;" class="tag-cloud-link">优化问题</a>
     
-    <a href="/tags/优化问题/" style="font-size: 12.368797584405522px;" class="tag-cloud-link">优化问题</a>
+    <a href="/tags/CodeCraft/" style="font-size: 18.111100842360777px;" class="tag-cloud-link">CodeCraft</a>
     
-    <a href="/tags/迁移学习/" style="font-size: 15.981636072185339px;" class="tag-cloud-link">迁移学习</a>
+    <a href="/tags/其他/" style="font-size: 14.226966069660964px;" class="tag-cloud-link">其他</a>
     
-    <a href="/tags/其他/" style="font-size: 11.801735713166734px;" class="tag-cloud-link">其他</a>
+    <a href="/tags/torchvision/" style="font-size: 17.35747046836275px;" class="tag-cloud-link">torchvision</a>
     
-    <a href="/tags/CodeCraft/" style="font-size: 11.700680005987547px;" class="tag-cloud-link">CodeCraft</a>
+    <a href="/tags/迁移学习/" style="font-size: 19.562326221739426px;" class="tag-cloud-link">迁移学习</a>
     
 </div>
                 
